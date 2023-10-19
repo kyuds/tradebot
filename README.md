@@ -1,2 +1,3 @@
-# tradebot
+## Tradebot
+# Project MP (Money Please)
 Millionaire dreams
