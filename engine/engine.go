@@ -1,7 +1,15 @@
 package main
 
-import "fmt"
+import (
+	"github.com/kyuds/tradebot/engine/executor"
+	"github.com/kyuds/tradebot/engine/streamer"
+)
 
 func main() {
-	fmt.Println("hi")
+	go func() {
+		streamer.Run()
+	}()
+	go func() {
+		executor.Run()
+	}()
 }

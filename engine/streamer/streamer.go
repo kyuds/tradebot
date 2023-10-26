@@ -1,1 +1,5 @@
 package streamer
+
+func Run() {
+
+}
