@@ -10,7 +10,5 @@ COPY ./predictor .
 RUN pip install --upgrade pip
 RUN pip install --user --no-cache-dir -r ./dependencies/requirements.txt
 
-# Expose Ports
-
 # Will be ran in docker-compose
-CMD ["python", "predictor.py"]
+# CMD ["python", "predictor.py"]

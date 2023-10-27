@@ -1,1 +1,58 @@
 version: '3'
+
+services:
+  # ENGINE
+  engine:
+    build:
+      context: .
+      dockerfile: docker/engine.Dockerfile
+    container_name: "engine"
+    image: engine:${VERSION}
+    ports:
+      - ${STREAMER_PORT}:${STREAMER_PORT}
+      - ${EXECUTOR_PORT}:${EXECUTOR_PORT}
+    restart: "no"
+    command: /engine
+    # depends_on:
+    #   - zookeeper-1
+    #   - kafka-1
+
+  # MODEL
+  predictor:
+    build:
+      context: .
+      dockerfile: docker/predictor.Dockerfile
+    container_name: "predictor"
+    image: predictor:${VERSION}
+    ports:
+      - ${PREDICTOR_PORT}:${PREDICTOR_PORT}
+    restart: "no"
+    command: python predictor.py
+    # depends_on:
+    #   - zookeeper-1
+    #   - kafka-1
+
+  # KAFKA "CLUSTER"
+  # zookeeper-1:
+  #   image: confluentinc/cp-zookeeper:7.5.1
+  #   environment:
+  #     ZOOKEEPER_SERVER_ID: 1
+  #     ZOOKEEPER_CLIENT_PORT: ${ZOOKEEPER_CLIENT_PORT}
+  #     ZOOKEEPER_TICK_TIME: ${ZOOKEEPER_TICK_TIME}
+  #   ports:
+  #     - ${ZOOKEEPER_EXPOSURE_PORT}:${ZOOKEEPER_CLIENT_PORT}
+  # kafka-1:
+  #   image: confluentinc/cp-kafka:7.5.1
+  #   depends_on:
+  #     - zookeeper-1
+  #   ports:
+  #     - 29092:29092
+  #   environment:
+  #     KAFKA_BROKER_ID: 1
+  #     KAFKA_ZOOKEEPER_CONNECT: zookeeper-1:${ZOOKEEPER_CLIENT_PORT}
+  #     KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-1:9092,PLAINTEXT_HOST://localhost:29092
+  #     KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+  #     KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+  #     KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  # DATABASE

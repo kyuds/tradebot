@@ -24,8 +24,6 @@ FROM alpine:3.18
 
 COPY --from=build /tmp/engine/engine /engine
 
-# Expose Ports
-
 # Run the binary program
 # the CMD will be run in docker-compose
 # CMD ["/engine"]

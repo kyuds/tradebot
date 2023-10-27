@@ -1,6 +1,9 @@
 package main
 
 import (
+	"fmt"
+	"time"
+
 	"github.com/kyuds/tradebot/engine/executor"
 	"github.com/kyuds/tradebot/engine/streamer"
 )
@@ -13,6 +16,7 @@ func main() {
 		executor.Run()
 	}()
 	for {
-
+		fmt.Println("reached")
+		time.Sleep(5 * time.Second)
 	}
 }
