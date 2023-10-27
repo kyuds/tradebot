@@ -12,4 +12,7 @@ func main() {
 	go func() {
 		executor.Run()
 	}()
+	for {
+
+	}
 }
