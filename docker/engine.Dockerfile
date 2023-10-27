@@ -6,7 +6,7 @@ FROM golang:1.21.3-alpine3.18 AS build
 # docker run -i -t c6dfde099801
 
 # More lightweight
-RUN apk add --no-cache git gcc musl-dev
+RUN apk add --no-cache gcc musl-dev
 
 # Need to download librdkafka
 ENV CGO_ENABLED 1
@@ -20,7 +20,7 @@ RUN go mod download
 RUN go build -tags musl -o engine
 
 # Start fresh from a smaller image
-FROM alpine:3.9 
+FROM alpine:3.18
 
 COPY --from=build /tmp/engine/engine /engine
 
