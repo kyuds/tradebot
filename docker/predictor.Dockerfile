@@ -10,5 +10,7 @@ COPY ./predictor .
 RUN pip install --upgrade pip
 RUN pip install --user --no-cache-dir -r ./dependencies/requirements.txt
 
+COPY ./kafka-topic-list.conf /kafka-topic-list.conf
+
 # Will be ran in docker-compose
 # CMD ["python", "predictor.py"]

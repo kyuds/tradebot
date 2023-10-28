@@ -22,6 +22,7 @@ RUN go build -tags musl -o engine
 # Start fresh from a smaller image
 FROM alpine:3.18
 
+COPY ./kafka-topic-list.conf /kafka-topic-list.conf
 COPY --from=build /tmp/engine/engine /engine
 
 # Run the binary program

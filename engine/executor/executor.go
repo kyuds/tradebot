@@ -2,15 +2,19 @@ package executor
 
 import (
 	"fmt"
+	"sync/atomic"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 )
 
-func Run() {
-	_, _ = kafka.NewConsumer(&kafka.ConfigMap{
-		"bootstrap.servers": "localhost",
-		"group.id":          "myGroup",
-		"auto.offset.reset": "earliest",
-	})
-	fmt.Println("executor")
+func Run(stop *int32, conf *kafka.ConfigMap) {
+	_, err := kafka.NewConsumer(conf)
+
+	if err != nil {
+		// will need better logging in the future
+		fmt.Printf("Failed to create consumer: %s\n", err)
+		// destroy the entire process, not just this thread.
+		atomic.StoreInt32(stop, 1)
+		return
+	}
 }

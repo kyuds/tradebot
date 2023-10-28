@@ -2,15 +2,19 @@ package streamer
 
 import (
 	"fmt"
+	"sync/atomic"
 
 	"github.com/confluentinc/confluent-kafka-go/v2/kafka"
 )
 
-func Run() {
-	_, _ = kafka.NewConsumer(&kafka.ConfigMap{
-		"bootstrap.servers": "localhost",
-		"group.id":          "myGroup",
-		"auto.offset.reset": "earliest",
-	})
-	fmt.Println("streamer")
+func Run(stop *int32, conf *kafka.ConfigMap) {
+	_, err := kafka.NewProducer(conf)
+
+	if err != nil {
+		// will need better logging in the future
+		fmt.Printf("Failed to create producer: %s\n", err)
+		// destroy the entire process, not just this thread.
+		atomic.StoreInt32(stop, 1)
+		return
+	}
 }
