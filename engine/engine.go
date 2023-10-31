@@ -11,6 +11,8 @@ import (
 )
 
 func main() {
+	time.Sleep(15 * time.Second)
+
 	// Setup
 	pubConf := producerConfigs()
 	subConf := consumerConfigs()

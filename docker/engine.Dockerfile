@@ -21,14 +21,14 @@ RUN go build -o engine
 
 # Start fresh from a smaller image
 # Might need to change bullseye-slim to bullseye. idk though
-FROM debian:bullseye-slim
+FROM bitnami/minideb:bullseye
 
 COPY ./kafka-topic-list.conf /kafka-topic-list.conf
 COPY --from=build /tmp/engine/engine /engine
 
 # Run the binary program
 # the CMD will be run in docker-compose
-CMD ["/engine"]
+# CMD ["/engine"]
 
 # OLD CODE FOR ALPINE JUST HERE FOR REFERENCE
 

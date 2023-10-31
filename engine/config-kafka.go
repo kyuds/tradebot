@@ -54,7 +54,7 @@ func createKafkaTopics() error {
 
 	// Kafka Admin Client
 	admin, err := kafka.NewAdminClient(&kafka.ConfigMap{
-		"bootstrap.servers": "localhost:9092",
+		"bootstrap.servers": "kafka-1:29092",
 	})
 
 	if err != nil {

@@ -18,23 +18,24 @@ services:
       - kafka-1
 
   # MODEL
-  predictor:
-    build:
-      context: .
-      dockerfile: docker/predictor.Dockerfile
-    container_name: "predictor"
-    image: predictor:${VERSION}
-    ports:
-      - ${PREDICTOR_PORT}:${PREDICTOR_PORT}
-    restart: "no"
-    command: python predictor.py
-    depends_on:
-      - zookeeper-1
-      - kafka-1
+  # predictor:
+  #   build:
+  #     context: .
+  #     dockerfile: docker/predictor.Dockerfile
+  #   container_name: "predictor"
+  #   image: predictor:${VERSION}
+  #   ports:
+  #     - ${PREDICTOR_PORT}:${PREDICTOR_PORT}
+  #   restart: "no"
+  #   command: python predictor.py
+  #   depends_on:
+  #     - zookeeper-1
+  #     - kafka-1
 
   # KAFKA
   zookeeper-1:
     image: confluentinc/cp-zookeeper:7.5.1
+    container_name: zookeeper-1
     environment:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: ${ZOOKEEPER_CLIENT_PORT}
@@ -43,6 +44,7 @@ services:
       - ${ZOOKEEPER_EXPOSURE_PORT}:${ZOOKEEPER_CLIENT_PORT}
   kafka-1:
     image: confluentinc/cp-kafka:7.5.1
+    container_name: kafka-1
     depends_on:
       - zookeeper-1
     ports:
