@@ -11,7 +11,8 @@ import (
 )
 
 func main() {
-	time.Sleep(15 * time.Second)
+	// Kafka needs to pause a bit to finish startup
+	time.Sleep(8 * time.Second)
 
 	// Setup
 	pubConf := producerConfigs()

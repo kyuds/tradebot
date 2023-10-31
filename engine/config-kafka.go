@@ -14,14 +14,13 @@ import (
 // configure these to setup kafka pubsub
 func producerConfigs() *kafka.ConfigMap {
 	return &kafka.ConfigMap{
-		"bootstrap.servers": "localhost:9092",
-		"auto.offset.reset": "latest",
+		"bootstrap.servers": "kafka-1:9092",
 	}
 }
 
 func consumerConfigs() *kafka.ConfigMap {
 	return &kafka.ConfigMap{
-		"bootstrap.servers": "localhost:9092",
+		"bootstrap.servers": "kafka-1:9092",
 		"auto.offset.reset": "latest",
 	}
 }
@@ -47,14 +46,11 @@ func createKafkaTopics() error {
 			NumPartitions:     1,
 			ReplicationFactor: 1,
 		})
-
-		// for debugging
-		fmt.Println(topicName)
 	}
 
 	// Kafka Admin Client
 	admin, err := kafka.NewAdminClient(&kafka.ConfigMap{
-		"bootstrap.servers": "kafka-1:29092",
+		"bootstrap.servers": "kafka-1:9092",
 	})
 
 	if err != nil {
