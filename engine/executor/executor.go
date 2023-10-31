@@ -8,7 +8,7 @@ import (
 )
 
 func Run(stop *int32, conf *kafka.ConfigMap) {
-	_, err := kafka.NewConsumer(conf)
+	c, err := kafka.NewConsumer(conf)
 
 	if err != nil {
 		// will need better logging in the future
@@ -17,4 +17,6 @@ func Run(stop *int32, conf *kafka.ConfigMap) {
 		atomic.StoreInt32(stop, 1)
 		return
 	}
+
+	defer c.Close()
 }
