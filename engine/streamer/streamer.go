@@ -19,4 +19,6 @@ func Run(stop *int32, conf *kafka.ConfigMap) {
 	}
 
 	defer p.Close()
+
+	fmt.Println("CREATED PRODUCER")
 }

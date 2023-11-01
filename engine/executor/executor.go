@@ -19,4 +19,6 @@ func Run(stop *int32, conf *kafka.ConfigMap) {
 	}
 
 	defer c.Close()
+
+	fmt.Println("CREATED CONSUMER")
 }
