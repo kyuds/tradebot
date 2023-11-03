@@ -15,6 +15,7 @@ import (
 )
 
 func main() {
+	fmt.Println("Starting engine.go...")
 	// Kafka needs to pause a bit to finish startup
 	time.Sleep(10 * time.Second)
 

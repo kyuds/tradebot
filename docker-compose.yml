@@ -18,19 +18,19 @@ services:
       - kafka-1
 
   # MODEL
-  # predictor:
-  #   build:
-  #     context: .
-  #     dockerfile: docker/predictor.Dockerfile
-  #   container_name: "predictor"
-  #   image: predictor:${VERSION}
-  #   ports:
-  #     - ${PREDICTOR_PORT}:${PREDICTOR_PORT}
-  #   restart: "no"
-  #   command: python predictor.py
-  #   depends_on:
-  #     - zookeeper-1
-  #     - kafka-1
+  predictor:
+    build:
+      context: .
+      dockerfile: docker/predictor.Dockerfile
+    container_name: "predictor"
+    image: predictor:${VERSION}
+    ports:
+      - ${PREDICTOR_PORT}:${PREDICTOR_PORT}
+    restart: "no"
+    command: python predictor.py
+    depends_on:
+      - zookeeper-1
+      - kafka-1
 
   # KAFKA
   zookeeper-1:
